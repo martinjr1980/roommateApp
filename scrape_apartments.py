@@ -3,6 +3,7 @@ import requests
 import json
 import re
 from bs4 import BeautifulSoup
+import pdb
 
 MONEY = re.compile('\$(\d+)')
 ID_MATCH = re.compile('(\d+)')
@@ -14,10 +15,14 @@ def make_urls(csvfile):
     """Return list of urls"""
     result = []
     with open(csvfile, 'rU') as infile: 
-        reader = csv.reader(infile, dialect=csv.excel_tab)
+        reader = csv.DictReader(infile, dialect=csv.excel,
+                                fieldnames=['ID','URL','Latitude','Longitude'])
         for row in reader:
-            idnum = ID_MATCH.search(row[0]).group()
-            result.append((row, idnum))
+            idnum = row['ID']
+            url = row['URL']
+            lat = row['Latitude']
+            lon = row['Longitude']
+            result.append((url, idnum, lat, lon))
     return result
 
 
@@ -25,7 +30,10 @@ def scrape_apartment(url_tuple):
     """Get Data for 1 apartment"""
     req = requests.get(url_tuple[0])
     soup = BeautifulSoup(req.text)
-    title = soup.find_all(class_='postingtitle')[0]
+    try:
+        title = soup.find_all(class_='postingtitle')[0]
+    except:
+        pdb.set_trace()
     price = MONEY.search(title.text).group(1)
     attrs = soup.find_all(class_='attrgroup')[0]
     try:
@@ -46,6 +54,8 @@ def scrape_apartment(url_tuple):
     except (AttributeError, IndexError):
         return None
     result = {}
+    result['lat'] = url_tuple[2]
+    result['lon'] = url_tuple[3]
     result['price'] = price
     result['bed'] = bed
     result['bath'] = bath
@@ -61,10 +71,10 @@ def write_to_json(inputs):
 
 
 if __name__ == '__main__':
-    urls = make_urls('urls.csv')
+    urls = make_urls('apts.csv')
     jdict = {}
     for url in urls:
-        dic = scrape_apartment(url[0])
+        dic = scrape_apartment(url)
         if dic != None:
             jdict[url[1]] = dic
     write_to_json(jdict)
