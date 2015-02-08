@@ -54,6 +54,8 @@ def scrape_apartment(url_tuple):
     except (AttributeError, IndexError):
         return None
     result = {}
+    result['url'] = url_tuple[0]
+    result['idnum'] = url_tuple[1]
     result['lat'] = url_tuple[2]
     result['lon'] = url_tuple[3]
     result['price'] = price
@@ -72,9 +74,9 @@ def write_to_json(inputs):
 
 if __name__ == '__main__':
     urls = make_urls('apts.csv')
-    jdict = {}
+    jlist = []
     for url in urls:
         dic = scrape_apartment(url)
         if dic != None:
-            jdict[url[1]] = dic
-    write_to_json(jdict)
+            jlist.append(dic)
+    write_to_json(jlist)
