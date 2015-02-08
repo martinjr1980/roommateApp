@@ -1,22 +1,35 @@
-// var mongoose = require('mongoose');
-module.exports = {
-	index: function(req, res) {
-		res.render('index');
-	},
+var User = require('./../models/user');
+var Listing = require('./../models/listing');
 
-	welcome: function(req, res) {
-		res.render('welcome');
-	},
+module.exports = (function() {
+	return {
+		index: function (req, res) {
+			User.find({}, function (err, results) {
+				res.json(results);
+			})
+		},
 
-	profile: function(req, res) {
-		res.render('profile');
-	},
+		create: function (req, res) {
+			User.findOne({ _fb_id: req.body._fb_id }, function (err, user) {
+				if (user === null) {
+					user = new User(req.body);
+					user.created_at = new Date();
+					user.save(function (err) {
+						res.json(user);
+					})
+				}
+				else {
+					res.json(user);
+				}
+			})
+		},
 
-	list: function(req, res) {
-		res.render('list');
-	},
-
-	map: function(req, res) {
-		res.render('map');
+		show: function (req, res) {
+			User.findOne({ _fb_id: req.params._fb_id })
+				.populate('listings')
+				.exec(function (err, user) {
+					res.json(user);
+				})
+		}
 	}
-}
+})();

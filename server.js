@@ -16,7 +16,7 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 // Sets up a static file server that points to the client directory
 app.use(express.static(path.join(__dirname, 'client')));
 
-// var mongoose = require('./config/mongoose.js');
+var mongoose = require('./config/mongoose.js');
 var routes = require('./config/routes.js')(app);
 
 app.set('port', (process.env.PORT || 5000));

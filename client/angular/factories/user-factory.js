@@ -10,11 +10,9 @@ birthdayApp.factory('UserFactory', function($http) {
 	}
 
 	factory.login = function (info, callback) {
-		$http.post('/users/show', info).success(function (data) {
-			session = data;
-			if (session.user) {
-				session.loggedIn = true;
-			}
+		$http.post('/users/create', info).success(function (data) {
+			session.user = data;
+			session.loggedIn = true;
 			callback(session);
 		})
 	}
@@ -22,12 +20,6 @@ birthdayApp.factory('UserFactory', function($http) {
 	factory.logout = function(callback) {
 		session = {};
 		callback();
-	}
- 
-	factory.addUser = function (info) {
-		$http.post('/users/create', info).success(function (data) {
-			users.push(data);
-		})
 	}
 	
 	return factory;

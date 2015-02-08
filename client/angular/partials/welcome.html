@@ -1,0 +1,9 @@
+<div ng-controller='BirthdayController'>
+	<button ng-click='logout()'>Logout</button>
+	<p></p>
+	<img src="{{ current_user.url }}">
+	<p>{{ current_user.first_name }}</p>
+	<p>{{ current_user.last_name }}</p>
+	<p>{{ current_user.birthday | date:'mediumDate'}}</p>
+	<button ng-click='getFeed()'>Feed</button>
+</div>
