@@ -1,0 +1,92 @@
+* {
+	margin: 0px;
+	font-family: sans-serif;
+}
+
+#wrapper {
+	background-color: gray;
+	/*background-image: url('./../images/background.jpg');*/
+	height: 1920px; width: 1080px;
+	margin: 0px auto;
+}
+
+.form {
+	background-color: yellow;
+	width: 200px;
+	margin: 5px auto;
+	text-align: center;
+	padding: 10px;
+}
+
+.underline {
+	text-decoration: underline;
+}
+
+.block {
+	display: block;
+}
+
+#fb-root {
+	text-align: center;
+}
+
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+th, td {
+	text-align: left;
+	padding: 5px;
+}
+
+table {
+	margin: 0px auto;
+	margin-top: 10px;
+}
+
+img {
+	border: 2px solid black;
+}
+
+input, textarea {
+	margin-bottom: 10px;
+}
+
+input[type='text'], input[type='password'], input[type='date'], textarea {
+	width: 180px;
+	margin: 10px auto;
+}
+
+select {
+	margin-bottom: 10px;
+}
+
+button {
+	background-color: blue;
+	font-size: 14px;
+	height: 25px; width: 70px;
+	border: 2px solid #0000B2;
+	border-radius: 3px;
+	color: white;
+}
+
+.red {
+	color: red;
+}
+
+button.red {
+	background-color: red;
+	border: 2px solid #990000;
+	color: white;
+}
+
+.small {
+	margin: 0px;
+	font-size: 12px;
+	text-align: center;
+}
+
+.center {
+	text-align: center;
+}

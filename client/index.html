@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang-'en'>
+<head>
+	<meta charset='utf-8'>
+	<title>Birthday App</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+	<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-route.min.js'></script>
+	<script type="text/javascript" src='angular/app.js'></script>
+	<script type="text/javascript" src='angular/controllers/birthday-controller.js'></script>
+	<script type="text/javascript" src='angular/factories/user-factory.js'></script>
+	<script type="text/javascript" src='angular/public/scripts/facebookSDK.js'></script>
+	<link rel="stylesheet" type="text/css" href="angular/public/stylesheets/style.css">
+</head>
+<body>
+	<div id='wrapper' ng-app='birthdayApp'>
+		<div id='fb-root'>
+			<fb:login-button size='large' scope='public_profile,email' length='long' autologoutlink='true' onlogin="login();"></fb:login-button>
+		</div>
+		<div id="status" class='center'>
+		</div>
+		<div ng-view=''>
+			<script>
+				birthdayApp.config(function ($routeProvider) {
+					$routeProvider
+						.when('/',
+						{
+							templateUrl: 'angular/partials/home.html'
+						})
+						.when('/welcome',
+						{
+							templateUrl: 'angular/partials/welcome.html'
+						})
+				});
+			</script>
+		</div>
+	</div>
+</body>
+</html>

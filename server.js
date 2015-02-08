@@ -9,15 +9,12 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded( { extended: true } ));
 app.use(bodyParser.json());
 
-app.set('views', path.join(__dirname, './server/views'));
-app.set('view engine', 'ejs');
-
 // Allows us to use put, patch, and delete http verbs
 var methodOverride = require('method-override');
 app.use(methodOverride('X-HTTP-Method-Override'));
 
 // Sets up a static file server that points to the client directory
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'client')));
 
 // var mongoose = require('./config/mongoose.js');
 var routes = require('./config/routes.js')(app);

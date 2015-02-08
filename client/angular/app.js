@@ -1,0 +1,1 @@
+var birthdayApp = angular.module('birthdayApp', ['ngRoute']);
